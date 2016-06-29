@@ -30,24 +30,23 @@
  int Abit6 = 28;
  int Abit7 = 26;
 
- //exact pin connections will be checked next time...
- int Bbit0 = 22;
- int Bbit1 = 22;
- int Bbit2 = 22;
- int Bbit3 = 22;
- int Bbit4 = 22;
- int Bbit5 = 20;
- int Bbit6 = 20;
- int Bbit7 = 20;
+ int Bbit0 = 41;
+ int Bbit1 = 39;
+ int Bbit2 = 37;
+ int Bbit3 = 35;
+ int Bbit4 = 33;
+ int Bbit5 = 31;
+ int Bbit6 = 29;
+ int Bbit7 = 27;
 
- int Cbit0 = 22;
- int Cbit1 = 22;
- int Cbit2 = 22;
- int Cbit3 = 22;
- int Cbit4 = 22;
- int Cbit5 = 20;
- int Cbit6 = 20;
- int Cbit7 = 20;
+ int Cbit0 = 11;
+ int Cbit1 = 10;
+ int Cbit2 = 9;
+ int Cbit3 = 8;
+ int Cbit4 = 7;
+ int Cbit5 = 6;
+ int Cbit6 = 5;
+ int Cbit7 = 4;
 
  QueueArray <int> str1;
  QueueArray <int> str2;
