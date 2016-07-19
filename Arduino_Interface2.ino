@@ -14,7 +14,7 @@
 #include <digitalWriteFast.h>
 
  int channel = 0;
- int samples = 0;
+ int sample = 0;
 
  int INTR = 46;
  int WR = 48; 
@@ -48,12 +48,28 @@
  int Cbit6 = 5;
  int Cbit7 = 4;
 
+ int bit0;
+ int bit1;
+ int bit2;
+ int bit3;
+ int bit4;
+ int bit5;
+ int bit6;
+ int bit7;
+
  QueueArray <int> str1;
  QueueArray <int> str2;
  QueueArray <int> str3;
  QueueArray <int> str4;
  QueueArray <int> str5;
  QueueArray <int> str6;
+
+ int test1[3000];
+ int test2[3000];
+ int test3[3000];
+ int test4[3000];
+ int test5[3000];
+ int test6[3000];
  
 
 void setup() {
@@ -96,13 +112,13 @@ void adc() {
   digitalWriteFast(WR, LOW);
   //delay(100);  //* make pulse wide enough
   digitalWriteFast(WR, HIGH); // rising edge to trigger start of conversion
-  digitalWriteFast(CS,HIGH); //* de-select
+  digitalWriteFast(CS, HIGH); //* de-select
 
   // Conversion...
   delayMicroseconds(60);
   
-  digitalWriteFast(CS,LOW);
-  digitalWriteFast(RD,LOW); // output on data bus.
+  digitalWriteFast(CS, LOW);
+  digitalWriteFast(RD, LOW); // output on data bus.
 
   // set bits 0-4 to input mode
   pinModeFast(Abit0, INPUT); pinModeFast(Bbit0, INPUT); pinModeFast(Cbit0, INPUT); 
@@ -117,42 +133,42 @@ void adc() {
 
   //read data
   //strings 1/2
-  int bit0 = digitalReadFast(Abit0);
-  int bit1 = digitalReadFast(Abit1)<<1;
-  int bit2 = digitalReadFast(Abit2)<<2;
-  int bit3 = digitalReadFast(Abit3)<<3;
-  int bit4 = digitalReadFast(Abit4)<<4;
-  int bit5 = digitalReadFast(Abit5)<<5;
-  int bit6 = digitalReadFast(Abit6)<<6;
-  int bit7 = digitalReadFast(Abit7)<<7;
+  bit0 = digitalRead(Abit0);
+  bit1 = digitalRead(Abit1)<<1;
+  bit2 = digitalRead(Abit2)<<2;
+  bit3 = digitalRead(Abit3)<<3;
+  bit4 = digitalRead(Abit4)<<4;
+  bit5 = digitalRead(Abit5)<<5;
+  bit6 = digitalRead(Abit6)<<6;
+  bit7 = digitalRead(Abit7)<<7;
   if(channel==0)
     str1.enqueue(bit7+bit6+bit5+bit4+bit3+bit2+bit1+bit0);
   else
     str2.enqueue(bit7+bit6+bit5+bit4+bit3+bit2+bit1+bit0);
 
   //strings 3/4
-  int bit0 = digitalReadFast(Bbit0);
-  int bit1 = digitalReadFast(Bbit1)<<1;
-  int bit2 = digitalReadFast(Bbit2)<<2;
-  int bit3 = digitalReadFast(Bbit3)<<3;
-  int bit4 = digitalReadFast(Bbit4)<<4;
-  int bit5 = digitalReadFast(Bbit5)<<5;
-  int bit6 = digitalReadFast(Bbit6)<<6;
-  int bit7 = digitalReadFast(Bbit7)<<7;
+  bit0 = digitalRead(Bbit0);
+  bit1 = digitalRead(Bbit1)<<1;
+  bit2 = digitalRead(Bbit2)<<2;
+  bit3 = digitalRead(Bbit3)<<3;
+  bit4 = digitalRead(Bbit4)<<4;
+  bit5 = digitalRead(Bbit5)<<5;
+  bit6 = digitalRead(Bbit6)<<6;
+  bit7 = digitalRead(Bbit7)<<7;
   if(channel==0)
     str3.enqueue(bit7+bit6+bit5+bit4+bit3+bit2+bit1+bit0);
   else
     str4.enqueue(bit7+bit6+bit5+bit4+bit3+bit2+bit1+bit0);
 
   //strings 5/6
-  int bit0 = digitalReadFast(Cbit0);
-  int bit1 = digitalReadFast(Cbit1)<<1;
-  int bit2 = digitalReadFast(Cbit2)<<2;
-  int bit3 = digitalReadFast(Cbit3)<<3;
-  int bit4 = digitalReadFast(Cbit4)<<4;
-  int bit5 = digitalReadFast(Cbit5)<<5;
-  int bit6 = digitalReadFast(Cbit6)<<6;
-  int bit7 = digitalReadFast(Cbit7)<<7;
+  bit0 = digitalRead(Cbit0);
+  bit1 = digitalRead(Cbit1)<<1;
+  bit2 = digitalRead(Cbit2)<<2;
+  bit3 = digitalRead(Cbit3)<<3;
+  bit4 = digitalRead(Cbit4)<<4;
+  bit5 = digitalRead(Cbit5)<<5;
+  bit6 = digitalRead(Cbit6)<<6;
+  bit7 = digitalRead(Cbit7)<<7;
   if(channel==0)
     str5.enqueue(bit7+bit6+bit5+bit4+bit3+bit2+bit1+bit0);
   else
@@ -202,6 +218,26 @@ void sendData() {
     Serial.print(str6.dequeue());
     
   interrupts();
+}
+
+void selectChannel() {
+  // first channel
+  if(channel==0) {
+    digitalWriteFast(Abit0, LOW); digitalWriteFast(Bbit0, LOW); digitalWriteFast(Cbit0, LOW); 
+    digitalWriteFast(Abit1, LOW); digitalWriteFast(Bbit1, LOW); digitalWriteFast(Cbit1, LOW); 
+    digitalWriteFast(Abit2, LOW); digitalWriteFast(Bbit2, LOW); digitalWriteFast(Cbit2, LOW); 
+    digitalWriteFast(Abit3, HIGH); digitalWriteFast(Bbit3, HIGH); digitalWriteFast(Cbit3, HIGH);
+    digitalWriteFast(Abit4, LOW); digitalWriteFast(Bbit4, LOW); digitalWriteFast(Cbit4, LOW);
+  }
+  // second channel
+  else {
+    digitalWriteFast(Abit0, HIGH); digitalWriteFast(Bbit0, HIGH); digitalWriteFast(Cbit0, HIGH); 
+    digitalWriteFast(Abit1, LOW); digitalWriteFast(Bbit1, LOW); digitalWriteFast(Cbit1, LOW); 
+    digitalWriteFast(Abit2, LOW); digitalWriteFast(Bbit2, LOW); digitalWriteFast(Cbit2, LOW); 
+    digitalWriteFast(Abit3, HIGH); digitalWriteFast(Bbit3, HIGH); digitalWriteFast(Cbit3, HIGH);
+    digitalWriteFast(Abit4, LOW); digitalWriteFast(Bbit4, LOW); digitalWriteFast(Cbit4, LOW);
+  }
+  return;    
 }
 
 void loop() {
