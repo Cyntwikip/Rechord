@@ -124,6 +124,8 @@ void loop() {
     Serial.print("String 2: ");
   
   Serial.println(bit7+bit6+bit5+bit4+bit3+bit2+bit1+bit0);
+  //Serial.print(digitalRead(Abit7)); Serial.print(digitalRead(Abit6)); Serial.print(digitalRead(Abit5)); Serial.print(digitalRead(Abit4)); 
+  
 
   //strings 3/4
   bit0 = digitalRead(Bbit0);
