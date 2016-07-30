@@ -81,6 +81,7 @@ void setup() {
   pinModeFast(Abit7, INPUT); pinModeFast(Bbit7, INPUT); pinModeFast(Cbit7, INPUT);
 
   //Serial.begin(57600);
+  //Serial.begin(74880);
   Serial.begin(115200);
   delay(500); 
 
@@ -167,7 +168,8 @@ void sendData() {
 //  Serial.println("String 1 : ");
   int i=0;
   while(i<2048) {
-    Serial.println((int)str1[i]);    
+    //Serial.println((int)str1[i]);  
+    Serial.write(byte(str1[i]));  
     i++;
   }
   //Serial.print( (char)10 ); // just LF, not CR/LF with println
@@ -175,7 +177,8 @@ void sendData() {
 //  Serial.println("String 2 : ");
   i=0;
   while(i<2048) {
-    Serial.println((int)str2[i]);    
+    //Serial.println((int)str2[i]);    
+    Serial.write(byte(str2[i]));
     i++;
   }
 //  Serial.println();

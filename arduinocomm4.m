@@ -39,12 +39,12 @@ try
         disp(datestr(now, 'HH:MM:SS:FFF'));
         fprintf(1,'done writing\n');
         
-        str1 = fscanf(s, '%u', numberOfDatas);
-        str2 = fscanf(s, '%u', numberOfDatas);
-        str3 = fscanf(s, '%u', numberOfDatas);
-        str4 = fscanf(s, '%u', numberOfDatas);
-        str5 = fscanf(s, '%u', numberOfDatas);
-        str6 = fscanf(s, '%u', numberOfDatas);
+        str1 = fread(s, numberOfDatas, 'uint8');
+        str2 = fread(s, numberOfDatas, 'uint8');
+        str3 = fread(s, numberOfDatas, 'uint8');
+        str4 = fread(s, numberOfDatas, 'uint8');
+        str5 = fread(s, numberOfDatas, 'uint8');
+        str6 = fread(s, numberOfDatas, 'uint8');
         
         disp(datestr(now, 'HH:MM:SS:FFF'));
         

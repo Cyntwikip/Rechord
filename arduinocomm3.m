@@ -14,6 +14,7 @@ try
     %set(s, 'Terminator', 'LF'); % Default terminator is \n
     %fprintf(1,'terminator\n');
     %set(s,'BaudRate', 57600);
+    %set(s,'BaudRate', 74880);
     set(s,'BaudRate',115200);
     set(s,'DataBits', 8);
     set(s,'StopBits', 1);
@@ -41,8 +42,10 @@ try
         disp(datestr(now, 'HH:MM:SS:FFF'));
         fprintf(1,'done writing\n');
         
-        str1 = fscanf(s, '%u', numberOfDatas);
-        str2 = fscanf(s, '%u', numberOfDatas);
+        %str1 = fscanf(s, '%u', numberOfDatas);
+        %str2 = fscanf(s, '%u', numberOfDatas);
+        str1 = fread(s, numberOfDatas, 'uint8');
+        str2 = fread(s, numberOfDatas, 'uint8');
         
         %for counter2=1:numberOfDatas
             % Get the data from the serial object
@@ -66,17 +69,30 @@ try
         
         disp(datestr(now, 'HH:MM:SS:FFF'));
         
-%         N = 2048;
-%         ts = 0.0005;
-%         t = ts*(0:N-1);
-%         wavefft = abs(fft(data));
-%         ft = 0:ts:ts*(N-1);
-%         wavelen = length(wavefft)/2;
-%         wave = wavefft(1:wavelen);
-%         [val index] = max(wave);
-%         
-%         fs = 1/ts;
-%         freq = index*fs/N
+        N = 2048;
+        ts = 0.0005;
+        t = ts*(0:N-1);
+        wavefft = abs(fft(str2));
+        ft = 0:ts:ts*(N-1);
+        wavelen = length(wavefft)/2;
+        wave = wavefft(1:wavelen);
+        [val index] = max(wave);
+        
+        fs = 1/ts;
+        freq = index*fs/N;
+        %disp('String 1 : ');
+        fprintf(1, 'String 2 : %d\n', freq);
+        
+        disp(datestr(now, 'HH:MM:SS:FFF'));
+        
+        wavefft = abs(fft(str1));
+        wavelen = length(wavefft)/2;
+        wave = wavefft(1:wavelen);
+        [val index] = max(wave);
+        fs = 1/ts;
+        freq = index*fs/N;
+        fprintf(1, 'String 1 : %d\n', freq);
+        disp(datestr(now, 'HH:MM:SS:FFF'));
         
     end
  

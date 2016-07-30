@@ -186,32 +186,38 @@ void adc() {
 void sendData() {
   int i=0;
   while(i<2048) {
-    Serial.println((int)str1[i]);    
+    //Serial.println((int)str1[i]);    
+    Serial.write(byte(str1[i]));
     i++;
   }
   i=0;
   while(i<2048) {
-    Serial.println((int)str2[i]);    
+    //Serial.println((int)str2[i]);    
+    Serial.write(byte(str2[i]));
     i++;
   }
   i=0;
   while(i<2048) {
-    Serial.println((int)str3[i]);    
+    //Serial.println((int)str3[i]);    
+    Serial.write(byte(str3[i]));
     i++;
   }
   i=0;
   while(i<2048) {
-    Serial.println((int)str4[i]);    
+    //Serial.println((int)str4[i]);   
+    Serial.write(byte(str4[i]));
     i++;
   }
   i=0;
   while(i<2048) {
-    Serial.println((int)str5[i]);    
+    //Serial.println((int)str5[i]);   
+    Serial.write(byte(str5[i])); 
     i++;
   }
   i=0;
   while(i<2048) {
-    Serial.println((int)str6[i]);    
+    //Serial.println((int)str6[i]);    
+    Serial.write(byte(str6[i]));
     i++;
   }
 }
